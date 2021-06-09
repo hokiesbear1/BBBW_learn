@@ -38,7 +38,7 @@ void RemoveTrigger(string trigger){
 
 /*usr1 is blink 5s on 5s off*/
 
-void blink (string i, string j){
+void blink (int i, int j){
     fstream fs;
     fs.open(LED_PATH USR1 "trigger", fstream::out);
     fs<< "timer";
@@ -74,16 +74,19 @@ int main(int argc, const char * argv[]) {
         cout << "remove trigger on Usr0\n";
         RemoveTrigger("none");
         sleep(1);
-        RemoveTrigger("1000");
-        cout<< "usr1 blink every 5s";
-        blink ("5000", "5000");
+        RemoveTrigger("1");
+        
+        cout<< "usr1 blink every 5s\n";
+        blink (5000, 5000);
+        cout<< "usr2 is ON\n";
         Ledstatus(true);
         sleep(3);
+        cout<< "usr2 is OFF\n";
         Ledstatus(false);
     }
     
     RemoveTrigger("heartbeat");
-    blink ("100","100");
+    blink (100,100);
     Ledstatus(false);
     
     return 0;
