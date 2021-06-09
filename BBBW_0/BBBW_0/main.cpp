@@ -13,6 +13,8 @@ usr3 brigtness low -> high
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unistd.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -38,13 +40,13 @@ void RemoveTrigger(string trigger){
 
 void blink (string i, string j){
     fstream fs;
-    fs.open(LED_PATH USR1 "trigger", fstream::out)
+    fs.open(LED_PATH USR1 "trigger", fstream::out);
     fs<< "timer";
     fs.close();
-    fs.open(LED_PATH USR1 "delay_on", fstream::out)
+    fs.open(LED_PATH USR1 "delay_on", fstream::out);
     fs<< i;
     fs.close();
-    fs.open(LED_PATH USR1 "delay_off", fstream::out)
+    fs.open(LED_PATH USR1 "delay_off", fstream::out);
     fs<< j;
     fs.close();
 }
@@ -67,19 +69,22 @@ void Ledstatus(bool statue ){
 int main(int argc, const char * argv[]) {
     
     
-    for (int i; i<10; i++){
+    for (int i=0; i<10; i++){
         
         cout << "remove trigger on Usr0\n";
         RemoveTrigger("none");
+        sleep(1000);
+        RemoveTrigger("1000");
         cout<< "usr1 blink every 5s";
         blink ("5000", "5000");
         Ledstatus(true);
-        usleep(5000);
+        sleep(5000);
         Ledstatus(false);
     }
     
     RemoveTrigger("heartbeat");
     blink ("100","100");
+    Ledstatus(false);
     
     return 0;
 }
