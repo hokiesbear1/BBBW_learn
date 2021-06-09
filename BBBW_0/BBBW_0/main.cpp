@@ -29,7 +29,7 @@ using namespace std;
 void RemoveTrigger(){
     fstream fs;
     fs.open(LED_PATH USR0 "/trigger", fstream::out);
-    fs<<"0";
+    fs<<"none";
     fs.close();
 }
 
@@ -129,8 +129,8 @@ int main(int argc, const char * argv[]) {
     cout << "remove trigger on Usr0\n";
     RemoveTrigger();
     
-    for (int i=0; i<loop; i++){
-        
+    for (int i=0; i<20; i++){
+        cout<< "in the loop\n";
         Usr0status(true);
         usleep(500);
         
