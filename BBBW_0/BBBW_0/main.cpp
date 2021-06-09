@@ -73,12 +73,12 @@ int main(int argc, const char * argv[]) {
         
         cout << "remove trigger on Usr0\n";
         RemoveTrigger("none");
-        sleep(1000);
+        sleep(1);
         RemoveTrigger("1000");
         cout<< "usr1 blink every 5s";
         blink ("5000", "5000");
         Ledstatus(true);
-        sleep(5000);
+        sleep(3);
         Ledstatus(false);
     }
     
