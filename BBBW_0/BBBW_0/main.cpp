@@ -132,31 +132,32 @@ int main(int argc, const char * argv[]) {
     for (int i=0; i<20; i++){
         cout<< "in the loop\n";
         Usr0status(true);
-        usleep(500);
+        sleep(1);
         
         Usr1status(true);
-        usleep(500);
+        sleep(1);
         
         Usr2status(true);
-        usleep(500);
+        sleep(1);
         
         Usr3status(true);
-        usleep(3000);
+        sleep(1);
         
         Usr3status(false);
-        usleep(500);
+        sleep(1);
         
         Usr2status(false);
-        usleep(500);
+        sleep(1);
         
         Usr1status(false);
-        usleep(500);
+        sleep(1);
         
         Usr0status(false);
-        usleep(2000);
+        sleep(1);
 
     }
     
+    cout<<"back to normal case\n";
     Trigger("heartbeat");
 
    // Ledstatus(false);
