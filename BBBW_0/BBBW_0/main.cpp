@@ -24,21 +24,77 @@ using namespace std;
 #define USR2 "beaglebone:green:usr2"
 #define USR3 "beaglebone:green:usr3"
 
+#define loop 20
 /* usr0 is off*/
-void RemoveTrigger(string trigger){
+void RemoveTrigger(){
     fstream fs;
     fs.open(LED_PATH USR0 "/trigger", fstream::out);
-    fs<<trigger;
+    fs<<"0";
     fs.close();
-    
 }
 
+void Trigger(string t){
+    fstream fs;
+    fs.open(LED_PATH USR0 "/trigger", fstream::out);
+    fs<<t;
+    fs.close();
+}
 
+void Usr0status(bool St){
+    fstream fs;
+    fs.open(LED_PATH USR0 "/brightness", fstream::out);
+    if (St != false){
+        fs<< "1";
+    }
+    else {
+        fs<< "0";
+    }
+    
+    fs.close();
+}
+void Usr1status(bool St){
+    fstream fs;
+    fs.open(LED_PATH USR1 "/brightness", fstream::out);
+    if (St != false){
+        fs<< "1";
+    }
+    else {
+        fs<< "0";
+    }
+    
+    fs.close();
+}
 
+void Usr2status(bool St){
+    fstream fs;
+    fs.open(LED_PATH USR2 "/brightness", fstream::out);
+    if (St != false){
+        fs<< "1";
+    }
+    else {
+        fs<< "0";
+    }
+    
+    fs.close();
+}
 
+void Usr3status(bool St){
+    fstream fs;
+    fs.open(LED_PATH USR3 "/brightness", fstream::out);
+    if (St != false){
+        fs<< "1";
+    }
+    else {
+        fs<< "0";
+    }
+    
+    fs.close();
+}
+
+#if 0
 /*usr1 is blink 5s on 5s off*/
 
-void blink (int i, int j){
+void blink (string i, string j){
     fstream fs;
     fs.open(LED_PATH USR1 "trigger", fstream::out);
     fs<< "timer";
@@ -66,28 +122,44 @@ void Ledstatus(bool statue ){
     fs.close();
     
 }
+
+#endif
 int main(int argc, const char * argv[]) {
     
+    cout << "remove trigger on Usr0\n";
+    RemoveTrigger();
     
-    for (int i=0; i<10; i++){
+    for (int i=0; i<loop; i++){
         
-        cout << "remove trigger on Usr0\n";
-        RemoveTrigger("none");
-        sleep(1);
-        RemoveTrigger("1");
+        Usr0status(true);
+        usleep(500);
         
-        cout<< "usr1 blink every 5s\n";
-        blink (5000, 5000);
-        cout<< "usr2 is ON\n";
-        Ledstatus(true);
-        sleep(3);
-        cout<< "usr2 is OFF\n";
-        Ledstatus(false);
+        Usr1status(true);
+        usleep(500);
+        
+        Usr2status(true);
+        usleep(500);
+        
+        Usr3status(true);
+        usleep(3000);
+        
+        Usr3status(false);
+        usleep(500);
+        
+        Usr2status(false);
+        usleep(500);
+        
+        Usr1status(false);
+        usleep(500);
+        
+        Usr0status(false);
+        usleep(2000);
+
     }
     
-    RemoveTrigger("heartbeat");
-    blink (100,100);
-    Ledstatus(false);
+    Trigger("heartbeat");
+
+   // Ledstatus(false);
     
     return 0;
 }
